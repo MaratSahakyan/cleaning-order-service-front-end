@@ -8,6 +8,7 @@ import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import AuthProvider, { useAuth } from "./auth/AuthProvider";
+import StoreProvider from "./components/store/StoreProvider";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
@@ -23,20 +24,22 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <Routes>
-          <Route
-            exact
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Main />
-              </ProtectedRoute>
-            }
-          />
-          <Route exact path="/sign-up" element={<SignUp />} />
-          <Route index exact path="/sign-in" element={<SignIn />} />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
+        <StoreProvider>
+          <Routes>
+            <Route
+              exact
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Main />
+                </ProtectedRoute>
+              }
+            />
+            <Route exact path="/sign-up" element={<SignUp />} />
+            <Route index exact path="/sign-in" element={<SignIn />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </StoreProvider>
       </AuthProvider>
     </Router>
   );

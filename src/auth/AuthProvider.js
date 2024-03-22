@@ -7,6 +7,7 @@ import {
 } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import { employees, createEmployee } from "../data/employee";
+import { admins } from "../data/admin";
 
 const AuthContext = createContext();
 
@@ -22,19 +23,26 @@ const AuthProvider = ({ children }) => {
           (e) => e.email === email && e.password === password
         );
 
-        if (!user) {
-          throw new Error("Wrong Credentials");
+        if (user) {
+          setUser(user);
+        } else {
+          const admin = admins.find(
+            (e) => e.email === email && e.password === password
+          );
+
+          if (!admin) {
+            throw new Error("Wrong Credentials");
+          }
+
+          setUser(admin);
         }
 
-        setUser(user);
         navigate("/dashboard");
       } catch (err) {
-        if (!user) {
-          throw new Error("Wrong Credentials");
-        }
+        throw new Error("Something Went Wrong");
       }
     },
-    [user, navigate]
+    [navigate]
   );
 
   const signUp = useCallback(
@@ -51,9 +59,8 @@ const AuthProvider = ({ children }) => {
         }
 
         const employee = createEmployee(data);
-        console.log("employees", employees);
         setUser(employee);
-        navigate('/dashboard')
+        navigate("/dashboard");
       } catch (err) {
         console.log("🚀 ~ signUp ~ err:", err);
         throw new Error("Something went wrong");

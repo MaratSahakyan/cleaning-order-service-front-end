@@ -7,9 +7,13 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
-import { AccountCircle, MenuOpenOutlined } from "@mui/icons-material";
+import { AccountCircle } from "@mui/icons-material";
+import { useAuth } from "../../auth/AuthProvider";
+import styles from "./styles.module.scss";
+import CreateEditTaskModal from "../CreateEditTaskModal";
 
 const MainHeader = () => {
+  const { user, signOut } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
@@ -23,19 +27,15 @@ const MainHeader = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-        >
-          <MenuOpenOutlined />
-        </IconButton>
+        {/* <Drawer /> */}
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Photos
+          Cleaning Service
         </Typography>
-        <div>
+        <div className={styles.container}>
+          <div className={styles.userInfo}>
+            <p>{user.role.includes("user") ? user.username : user.name}</p>
+            <p>{user.email}</p>
+          </div>
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -61,8 +61,12 @@ const MainHeader = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            {user.role.includes("admin") ? (
+              <CreateEditTaskModal title="Create Task" />
+            ) : (
+              <></>
+            )}
+            <MenuItem onClick={signOut}>Log Out</MenuItem>
           </Menu>
         </div>
       </Toolbar>

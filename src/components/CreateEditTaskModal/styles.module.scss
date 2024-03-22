@@ -1,0 +1,38 @@
+.datePicker {
+  width: 93%;
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #c4c4c4;
+  border-radius: 4px;
+  &:focus-visible {
+    border: none;
+    outline: 2px solid rgb(25, 118, 210);
+  }
+}
+
+.dateContainer {
+  & > div {
+    width: 100%;
+  }
+}
+
+.autoComplete {
+  & > div {
+    & > input {
+      padding: 8px !important;
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+}

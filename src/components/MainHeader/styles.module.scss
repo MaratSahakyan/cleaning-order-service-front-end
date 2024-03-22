@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  .userInfo {
+    & > p {
+      padding: 2px;
+    }
+  }
+}
