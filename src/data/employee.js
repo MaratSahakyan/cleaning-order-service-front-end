@@ -43,7 +43,7 @@ const createEmployeeForm = ({ name, lastName, email, password }) => ({
   password,
   orders: [],
   busyHours: [],
-  role: ["employee"],
+  role: ["user"],
 });
 
 export const createEmployee = (data) => {

@@ -6,8 +6,8 @@ import {
   useMemo,
 } from "react";
 import { redirect, useNavigate } from "react-router-dom";
-import { employees, createEmployee } from "../data/employee";
-import { admins } from "../data/admin";
+import { employees, createEmployee } from "../../data/employee";
+import { admins } from "../../data/admin";
 
 const AuthContext = createContext();
 

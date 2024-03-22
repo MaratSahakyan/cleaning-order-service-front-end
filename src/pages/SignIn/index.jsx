@@ -13,7 +13,7 @@ import { LockOutlined } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { validationSchema } from "./validationSchema";
 import CustomTextfield from "../../components/CustomTextfield";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "../../state/auth/AuthProvider";
 
 const initialValues = {
   email: "",

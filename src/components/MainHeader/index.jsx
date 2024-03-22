@@ -8,7 +8,7 @@ import {
   Menu,
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "../../state/auth/AuthProvider";
 import styles from "./styles.module.scss";
 import CreateEditTaskModal from "../CreateEditTaskModal";
 

@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { format } from "date-fns";
-import "./styles.css";
-import { useStore } from "../store/StoreProvider";
+import { useStore } from "../../state/store/StoreProvider";
 import CreateEditTaskModal from "../CreateEditTaskModal";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "../../state/auth/AuthProvider";
+import "./styles.css";
 
 const TaskList = ({ tasks }) => {
   const { handleChangeTaskToEdit } = useStore();
@@ -65,48 +65,53 @@ const TaskList = ({ tasks }) => {
     [handleChangeTaskToEdit]
   );
 
-  const renderTasks = (tasks, status) => {
-    return tasks.map((task) => (
-      <div
-        className="card"
-        key={task.id}
-        id={task.id}
-        draggable
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-      >
-        {user.role.includes("admin") ? (
-          <CreateEditTaskModal
-            title="Edit Task"
-            handleClick={handleClick(task.id)}
-          />
-        ) : (
-          <></>
-        )}
-        <div className="smallContainer">
-          <div className="card_right">
-            <div className="card-item">Address: {task.address}</div>
-            <div className="card-item">Name: {task.hotel.name}</div>
-            <div className="card-item">Apartment: {task.apartment}</div>
-            <div className="card-item">Assigned: {task.employee.username}</div>
-          </div>
-          <div className="card_right">
-            <div className="card-item">
-              Start Time: {format(task.startTime, "MMMM dd HH:mm")}
+  const renderTasks = useCallback(
+    (tasks, status) => {
+      return tasks.map((task) => (
+        <div
+          className="card"
+          key={task.id}
+          id={task.id}
+          draggable
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+        >
+          {user.role.includes("admin") ? (
+            <CreateEditTaskModal
+              title="Edit Task"
+              handleClick={handleClick(task.id)}
+            />
+          ) : (
+            <></>
+          )}
+          <div className="smallContainer">
+            <div className="card_right">
+              <div className="card-item">Address: {task.address}</div>
+              <div className="card-item">Name: {task.hotel.name}</div>
+              <div className="card-item">Apartment: {task.apartment}</div>
+              <div className="card-item">
+                Assigned: {task.employee.username}
+              </div>
             </div>
-            <div className="card-item">
-              Finish Time:
-              {format(task.finishTime, "MMMM dd HH:mm")}
+            <div className="card_right">
+              <div className="card-item">
+                Start Time: {format(task.startTime, "MMMM dd HH:mm")}
+              </div>
+              <div className="card-item">
+                Finish Time:
+                {format(task.finishTime, "MMMM dd HH:mm")}
+              </div>
+              <div className="card-item">
+                Deadline: {format(task.deadline, "MMMM dd HH:mm")}
+              </div>
+              <div className="card-item">Status: {task.status}</div>
             </div>
-            <div className="card-item">
-              Deadline: {format(task.deadline, "MMMM dd HH:mm")}
-            </div>
-            <div className="card-item">Status: {task.status}</div>
           </div>
         </div>
-      </div>
-    ));
-  };
+      ));
+    },
+    [handleClick, user.role]
+  );
 
   return (
     <div className="container">
@@ -177,4 +182,4 @@ const TaskList = ({ tasks }) => {
   );
 };
 
-export default TaskList;
+export default memo(TaskList);

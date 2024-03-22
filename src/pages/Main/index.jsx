@@ -1,8 +1,8 @@
 import { memo, useMemo } from "react";
 import MainHeader from "../../components/MainHeader";
 import TaskList from "../../components/DragAndDrop";
-import { useStore } from "../../components/store/StoreProvider";
-import { useAuth } from "../../auth/AuthProvider";
+import { useStore } from "../../state/store/StoreProvider";
+import { useAuth } from "../../state/auth/AuthProvider";
 
 const Main = () => {
   const { tasks } = useStore();
@@ -10,7 +10,7 @@ const Main = () => {
 
   const filteredByUser = useMemo(
     () =>
-      user.role.includes("employee")
+      user.role.includes("user")
         ? tasks.filter((t) => t.employee.id === user.id)
         : tasks,
     [user, tasks]

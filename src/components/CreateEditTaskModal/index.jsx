@@ -18,7 +18,7 @@ import { hotels } from "../../data/hotel";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./styles.module.scss";
-import { useStore } from "../store/StoreProvider";
+import { useStore } from "../../state/store/StoreProvider";
 
 const initialValues = {
   employee: {},

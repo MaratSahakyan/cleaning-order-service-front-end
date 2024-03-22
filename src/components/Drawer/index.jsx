@@ -9,7 +9,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { MenuOpenOutlined } from "@mui/icons-material";
-import { useAuth } from "../../auth/AuthProvider";
+import { useAuth } from "../../state/auth/AuthProvider";
 
 const adminPanel = ["Hotels", "Employees"];
 const employeePanel = ["Arrangements"];

@@ -7,10 +7,11 @@ import {
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
-import AuthProvider, { useAuth } from "./auth/AuthProvider";
-import StoreProvider from "./components/store/StoreProvider";
+import AuthProvider, { useAuth } from "./state/auth/AuthProvider";
+import StoreProvider from "./state/store/StoreProvider";
+import { memo } from "react";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = memo(({ children }) => {
   const { user } = useAuth();
 
   if (!user) {
@@ -18,7 +19,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return children;
-};
+});
 
 const App = () => {
   return (
