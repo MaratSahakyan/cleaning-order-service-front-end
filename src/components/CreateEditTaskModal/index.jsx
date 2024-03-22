@@ -43,7 +43,6 @@ const CreateEditTaskModal = ({ title, handleClick }) => {
     }
   }, [handleClick]);
   const handleClose = useCallback(() => {
-    console.log("ssssss");
     setOpen(false);
     handleCleanTaskToEdit();
   }, [handleCleanTaskToEdit]);
